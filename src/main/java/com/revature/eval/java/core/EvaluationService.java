@@ -1,11 +1,16 @@
 package com.revature.eval.java.core;
 
 import java.time.temporal.Temporal;
+import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Scanner;
 
 public class EvaluationService {
-
+	
+		
+	
 	/**
 	 * 1. Without using the StringBuilder or StringBuffer class, write a method that
 	 * reverses a String. Example: reverse("example"); -> "elpmaxe"
@@ -15,7 +20,21 @@ public class EvaluationService {
 	 */
 	public String reverse(String string) {
 		// TODO Write an implementation for this method declaration
-		return null;
+		
+		char[] string2 = string.toCharArray();
+	    int begin=0;
+	    int end=string2.length-1;
+	    char temp;
+	    while(end>begin){
+	        temp = string2[begin];
+	        string2[begin]=string2[end];
+	        string2[end] = temp;
+	        end--;
+	        begin++;
+	    }
+	    return new String(string2);
+	    
+		//return null;
 	}
 
 	/**
@@ -28,7 +47,26 @@ public class EvaluationService {
 	 */
 	public String acronym(String phrase) {
 		// TODO Write an implementation for this method declaration
-		return null;
+		
+		
+		 
+		    StringBuilder acronym = new StringBuilder();
+
+		    Scanner scan = new Scanner(System.in);
+
+		    System.out.println("Enter your three words: ");
+		    phrase = scan.nextLine();
+
+		    String[] threeWordsArray = phrase.split(" ");
+
+	        for(String word : threeWordsArray) {
+	            acronym.append( word.substring(0, 1) );
+	        }
+
+		    
+		   
+		
+		return phrase;
 	}
 
 	/**
@@ -40,6 +78,8 @@ public class EvaluationService {
 	 * different lengths.
 	 *
 	 */
+	//input values into an array [3] use .equals to compare values of elements at 
+	//different indexes
 	static class Triangle {
 		private double sideOne;
 		private double sideTwo;
@@ -81,21 +121,32 @@ public class EvaluationService {
 		}
 
 		public boolean isEquilateral() {
-			// TODO Write an implementation for this method declaration
-			return false;
+			if (sideOne == sideTwo && sideTwo == sideThree)
+				return true;
+			else 
+				return false;
 		}
 
 		public boolean isIsosceles() {
 			// TODO Write an implementation for this method declaration
-			return false;
+			if ((sideOne == sideTwo && sideTwo != sideThree) ||
+					(sideOne == sideThree && sideTwo != sideThree) ||
+					(sideTwo == sideThree && sideOne != sideThree))
+					return true;
+				else
+					return false;
+		
 		}
 
 		public boolean isScalene() {
 			// TODO Write an implementation for this method declaration
-			return false;
+			if (sideOne == sideTwo || sideTwo == sideThree || sideOne == sideThree)
+				return false;
+			else
+				return true;
 		}
-
 	}
+	
 
 	/**
 	 * 4. Given a word, compute the scrabble score for that word.
@@ -114,7 +165,48 @@ public class EvaluationService {
 	 */
 	public int getScrabbleScore(String string) {
 		// TODO Write an implementation for this method declaration
-		return 0;
+		int score = 0;
+        for (int i = 0; i < string.length(); i++){
+            int calculatedLetter = score;
+            switch (calculatedLetter) {
+                case 'A':
+                case 'E':
+                case 'I':
+                case 'L':
+                case 'N':
+                case 'O':
+                case 'R':
+                case 'S':
+                case 'T':
+                case 'U':
+                    score +=1; break;
+                case 'D':
+                case 'G':
+                    score +=2; break;
+                case 'B':
+                case 'C':
+                case 'M':
+                case 'P':
+                    score +=3; break;
+                case 'F':
+                case 'H':
+                case 'V':
+                case 'W':
+                case 'Y':
+                    score +=4; break;
+                case 'K':
+                    score +=5; break;
+                case 'J':
+                case 'X':
+                    score +=8; break;
+                case 'Q':
+                case 'Z':
+                    score +=10; break;
+                default: break;
+            }
+        }
+        return score;
+		
 	}
 
 	/**
@@ -148,10 +240,33 @@ public class EvaluationService {
 	 * Note: As this exercise only deals with telephone numbers used in
 	 * NANP-countries, only 1 is considered a valid country code.
 	 */
-	public String cleanPhoneNumber(String string) {
+	public String cleanPhoneNumber(String number) {
 		// TODO Write an implementation for this method declaration
-		return null;
-	}
+		if (number.length()>11||number.length()<10) {
+			 throw new IllegalArgumentException("Number must be 10 or 11 digits");
+        }
+
+        if (number.length() == 11) {
+            if (number.startsWith("1")) {
+                number = number.substring(1, number.length());
+            } else {
+                throw new IllegalArgumentException("Can only have 11 digits if number starts with '1'");
+            }
+        }
+        
+        if (number.startsWith("0") || number.startsWith("1")){
+            throw new IllegalArgumentException("Illegal Area Or Exchange Code. "
+                    + "Only 2-9 are valid digits");
+        } else if (number.charAt(3) == '0' || number.charAt(3) == '1'){
+            throw new IllegalArgumentException("Illegal Area Or Exchange Code. "
+                    + "Only 2-9 are valid digits");
+        } 
+
+        return number;
+		}
+		
+		
+	
 
 	/**
 	 * 6. Given a phrase, count the occurrences of each word in that phrase.
@@ -164,7 +279,19 @@ public class EvaluationService {
 	 */
 	public Map<String, Integer> wordCount(String string) {
 		// TODO Write an implementation for this method declaration
-		return null;
+		String[] splitStr = string.split(" ");
+		Map<String, Integer> wordCount = new HashMap<>();
+		for (String word: splitStr) {
+		    if (wordCount.containsKey(word)) {
+		        // Map already contains the word key. Just increment it's count by 1
+		        wordCount.put(word, wordCount.get(word) + 1);
+		    } else {
+		        // Map doesn't have mapping for word. Add one with count = 1
+		        wordCount.put(word, 1);
+		    }
+		}
+		return wordCount;
+		
 	}
 
 	/**
@@ -207,6 +334,8 @@ public class EvaluationService {
 
 		public int indexOf(T t) {
 			// TODO Write an implementation for this method declaration
+			
+			
 			return 0;
 		}
 
@@ -242,9 +371,31 @@ public class EvaluationService {
 	 * @param string
 	 * @return
 	 */
-	public String toPigLatin(String string) {
+	public String toPigLatin() {
 		// TODO Write an implementation for this method declaration
-		return null;
+		 Scanner sc = new Scanner(System.in);
+	        final String vowels = "aeiouAEIOU";
+	        System.out.println("Enter your word.");
+	        String string = sc.nextLine();
+	        while (!string.equalsIgnoreCase("done"))
+	        {
+	            String beforVowel = "";
+	            int cut = 0;
+	            while (cut < string.length() && !vowels.contains("" + string.charAt(cut)))
+	            {
+	                beforVowel += string.charAt(cut);
+	                cut++;
+	            }
+	            if (cut == 0){
+	                cut = 1;
+	                string += string.charAt(0) + "w";
+	            }
+	            System.out.println(string.substring(cut) + beforVowel + "ay");
+	            System.out.println("Enter your word.");
+	            string = sc.nextLine();
+		
+	        }
+			return string;
 	}
 
 	/**
@@ -263,10 +414,27 @@ public class EvaluationService {
 	 * @return
 	 */
 	public boolean isArmstrongNumber(int input) {
+		
 		// TODO Write an implementation for this method declaration
-		return false;
-	}
+		int number = input, originalNumber, remainder, result = 0;
 
+        originalNumber = number;
+
+        while (originalNumber != 0)
+        {
+            remainder = originalNumber % 10;
+            result += Math.pow(remainder, 3);
+            originalNumber /= 10;
+        }
+
+        if(result == number) {
+            return true;
+        }
+        else {
+            return false;
+        }
+	}
+		
 	/**
 	 * 10. Compute the prime factors of a given natural number.
 	 * 
@@ -277,9 +445,20 @@ public class EvaluationService {
 	 * @param l
 	 * @return
 	 */
-	public List<Long> calculatePrimeFactorsOf(long l) {
+	public List<Long> calculatePrimeFactorsOf(long number) {
 		// TODO Write an implementation for this method declaration
-		return null;
+		long n = number;
+		
+        List<Long> factors = new ArrayList<Long>();
+        for (int i = 2; i <= n; i++) {
+            while (n % i == 0) {
+                factors.add((long) i);
+                n /= i;
+            }
+        }
+        return factors;
+		
+		
 	}
 
 	/**
@@ -318,10 +497,24 @@ public class EvaluationService {
 
 		public String rotate(String string) {
 			// TODO Write an implementation for this method declaration
+			
+			 StringBuilder sb = new StringBuilder();
+		        for (int i = 0; i < string.length(); i++) {
+		            sb.append(rotate(string.charAt(i), key));
+		        }
+		        return sb.toString();
+			  }
+
+		private Object rotate(char charAt, int key2) {
+			// TODO Auto-generated method stub
 			return null;
 		}
 
-	}
+			
+	
+		}
+
+	
 
 	/**
 	 * 12. Given a number n, determine what the nth prime is.
@@ -337,7 +530,30 @@ public class EvaluationService {
 	 */
 	public int calculateNthPrime(int i) {
 		// TODO Write an implementation for this method declaration
-		return 0;
+		Scanner sc = new Scanner(System.in);
+		 
+	    System.out.print("Enter n to compute the nth prime number: ");
+	 
+	    int nth = sc.nextInt();
+	 
+	    int num, count;
+	    num=1;
+	    count=0;
+	 
+	    while (count < nth){
+	      num=num+1;
+	      for (i = 2; i <= num; i++){
+	        if (num % i == 0) {
+	          break;
+	        }
+	      }
+	      if ( i == num){
+	        count = count+1;
+	      }
+	    }
+	   return i;
+	  }
+	
 	}
 
 	/**
@@ -387,7 +603,7 @@ public class EvaluationService {
 			// TODO Write an implementation for this method declaration
 			return null;
 		}
-	}
+	
 
 	/**
 	 * 15. The ISBN-10 verification process is used to validate book identification
