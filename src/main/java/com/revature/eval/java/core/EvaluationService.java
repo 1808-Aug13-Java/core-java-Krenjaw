@@ -5,7 +5,6 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.Scanner;
 
 public class EvaluationService {
 	
@@ -52,10 +51,10 @@ public class EvaluationService {
 		 
 		    StringBuilder acronym = new StringBuilder();
 
-		    Scanner scan = new Scanner(System.in);
+		  
 
-		    System.out.println("Enter your three words: ");
-		    phrase = scan.nextLine();
+		   
+		    
 
 		    String[] threeWordsArray = phrase.split(" ");
 
@@ -371,12 +370,12 @@ public class EvaluationService {
 	 * @param string
 	 * @return
 	 */
-	public String toPigLatin() {
+	public String toPigLatin(String string) {
 		// TODO Write an implementation for this method declaration
-		 Scanner sc = new Scanner(System.in);
+		 
 	        final String vowels = "aeiouAEIOU";
-	        System.out.println("Enter your word.");
-	        String string = sc.nextLine();
+	        
+	        
 	        while (!string.equalsIgnoreCase("done"))
 	        {
 	            String beforVowel = "";
@@ -390,10 +389,6 @@ public class EvaluationService {
 	                cut = 1;
 	                string += string.charAt(0) + "w";
 	            }
-	            System.out.println(string.substring(cut) + beforVowel + "ay");
-	            System.out.println("Enter your word.");
-	            string = sc.nextLine();
-		
 	        }
 			return string;
 	}
@@ -530,17 +525,13 @@ public class EvaluationService {
 	 */
 	public int calculateNthPrime(int i) {
 		// TODO Write an implementation for this method declaration
-		Scanner sc = new Scanner(System.in);
-		 
-	    System.out.print("Enter n to compute the nth prime number: ");
 	 
-	    int nth = sc.nextInt();
 	 
 	    int num, count;
 	    num=1;
 	    count=0;
-	 
-	    while (count < nth){
+	   
+	    while (count < i){
 	      num=num+1;
 	      for (i = 2; i <= num; i++){
 	        if (num % i == 0) {
@@ -581,7 +572,7 @@ public class EvaluationService {
 	 *
 	 */
 	static class AtbashCipher {
-
+	
 		/**
 		 * Question 13
 		 * 
